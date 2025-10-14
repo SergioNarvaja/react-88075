@@ -12,20 +12,25 @@ const ItemDetail = ({ product }) => {
   };
 
   return (
-    <div className="card">
+    <div style={{ textAlign: "center", marginTop: 20 }}>
+      <img
+        src={product.img}
+        alt={product.name}
+        style={{ width: 250, borderRadius: 10 }}
+      />
       <h2>{product.name}</h2>
       <p>{product.description}</p>
-      <p>Precio: ${product.price}</p>
-      {product.stock === 0 && <p>Producto sin stock</p>}
-      {!added ? (
-        <ItemCount stock={product.stock} initial={1} onAdd={handleAdd}/>
+      <h3>${product.price}</h3>
+
+      {added ? (
+        <a href="/cart">
+          <button>Ir al carrito</button>
+        </a>
       ) : (
-        <div>
-          <p>Agregaste al carrito ✅</p>
-          <a href="/cart">Ir al carrito</a>
-        </div>
+        <ItemCount stock={product.stock} initial={1} onAdd={handleAdd} />
       )}
     </div>
   );
 };
+
 export default ItemDetail;
