@@ -1,3 +1,29 @@
+
+# ProyectoFinal+Narvaja - SerZen Store
+
+Entrega final preparada para el curso. Incluye:
+- React + Vite SPA
+- React Router (rutas: /, /category/:id, /item/:id, /cart, /checkout)
+- Cart context para manejar carrito
+- Firestore integrado (config en `src/firebase/config.js`)
+- Seed script para subir productos: `npm run seed`
+
+## Instalación local
+
+```bash
+npm install
+npm run dev
+```
+
+## Poblar Firestore (opcional)
+```bash
+npm run seed
+```
+
+## Notas
+- Este paquete incluye tu firebase config para pruebas locales.
+- Revisa Firebase Console > Firestore para ver las colecciones `products` y `orders`.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getProducts, getProductsByCategory } from "../services/products";
-import ItemList from "./ItemList";
+import { getProducts, getProductsByCategory } from "../services/products.js";
+import ItemList from "./ItemList.jsx";
 
-const ItemListContainer = () => {
+export default function ItemListContainer() {
   const { categoryId } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,8 +16,8 @@ const ItemListContainer = () => {
           ? await getProductsByCategory(categoryId)
           : await getProducts();
         setProducts(data);
-      } catch (err) {
-        console.error("Error cargando productos:", err);
+      } catch (error) {
+        console.error("Error cargando productos:", error);
       } finally {
         setLoading(false);
       }
@@ -37,10 +37,10 @@ const ItemListContainer = () => {
 
   return (
     <div>
-      <h2>{categoryId ? `Categoría: ${categoryId}` : "Todos los productos"}</h2>
+      <h2 style={{ textAlign: "center", margin: "20px 0" }}>
+        {categoryId ? `Categoría: ${categoryId}` : "Todos los productos"}
+      </h2>
       <ItemList products={products} />
     </div>
   );
-};
-
-export default ItemListContainer;
+}

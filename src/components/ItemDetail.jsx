@@ -1,8 +1,8 @@
-import { useState } from "react";
-import ItemCount from "./ItemCount";
-import { useCart } from "../context/CartContext";
+import { useState } from 'react';
+import ItemCount from './ItemCount.jsx';
+import { useCart } from '../context/CartContext.jsx';
 
-const ItemDetail = ({ product }) => {
+export default function ItemDetail({ product }) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
 
@@ -12,25 +12,36 @@ const ItemDetail = ({ product }) => {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: 20 }}>
+    <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
       <img
-        src={product.img}
+        src={product.img || product.image || ''}
         alt={product.name}
-        style={{ width: 250, borderRadius: 10 }}
+        style={{ width: 300, borderRadius: 8 }}
       />
       <h2>{product.name}</h2>
       <p>{product.description}</p>
-      <h3>${product.price}</h3>
+      <h3 style={{ color: '#422100' }}>${product.price}</h3>
 
-      {added ? (
-        <a href="/cart">
-          <button>Ir al carrito</button>
-        </a>
-      ) : (
+      {product.stock === 0 && <p style={{ color: 'red' }}>Producto sin stock</p>}
+
+      {!added ? (
         <ItemCount stock={product.stock} initial={1} onAdd={handleAdd} />
+      ) : (
+        <a href="/cart">
+          <button
+            style={{
+              background: 'var(--green)',
+              color: '#fff',
+              border: 0,
+              padding: '0.5rem 1rem',
+              borderRadius: 6,
+              marginTop: 10
+            }}
+          >
+            Ir al carrito
+          </button>
+        </a>
       )}
     </div>
   );
-};
-
-export default ItemDetail;
+}

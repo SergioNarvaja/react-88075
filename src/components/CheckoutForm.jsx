@@ -29,15 +29,13 @@ const CheckoutForm = () => {
     }
   };
 
-  if (orderId) return <div>Gracias por tu compra. Tu id de orden es: <strong>{orderId}</strong></div>;
-
+  if (orderId)
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Checkout</h2>
-      <input value={name} onChange={e => setName(e.target.value)} placeholder="Nombre" required />
-      <input value={phone} onChange={e => setPhone(e.target.value)} placeholder="Teléfono" required />
-      <button type="submit" disabled={loading || cart.length === 0}>{loading ? "Procesando..." : "Confirmar compra"}</button>
-    </form>
+    <div style={{ textAlign: "center", marginTop: "2rem" }}>
+      <h3>Gracias por tu compra 💚</h3>
+      <p>Tu ID de orden es: <strong>{orderId}</strong></p>
+      <p>Te estaremos contactando por WhatsApp para coordinar tu masaje 😉</p>
+    </div>
   );
 };
 export default CheckoutForm;

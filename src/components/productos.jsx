@@ -1,5 +1,6 @@
 import React from "react";
 import products from "../data/products";
+import { useCart } from "../context/CartContext.jsx";
 
 const styles = {
   container: {
@@ -20,6 +21,11 @@ const styles = {
     padding: "1rem",
     borderRadius: "12px",
     boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+  },
+  cardHover: {
+    transform: "scale(1.03)",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
   },
   image: {
     width: "100%",
@@ -42,20 +48,35 @@ const styles = {
   },
 };
 
-const Productos = () => {
+export default function Productos() {
+  const { addItem } = useCart();
+
   return (
-    <div className="productos-container">
-      {products.map((p) => (
-        <div key={p.id} className="producto-card">
-          <img src={p.image} alt={p.name} className="producto-img" />
-          <h3>{p.name}</h3>
-          <p>{p.description}</p>
-          <p className="precio">${p.price.toLocaleString("es-AR")}</p>
-          <button>Agregar al carrito</button>
-        </div>
-      ))}
+    <div style={styles.container}>
+      <h2 style={styles.title}>Nuestros productos</h2>
+
+      <div style={styles.grid}>
+        {products.map((p) => (
+          <div
+            key={p.id}
+            style={styles.card}
+            onMouseEnter={(e) =>
+              Object.assign(e.currentTarget.style, styles.cardHover)
+            }
+            onMouseLeave={(e) =>
+              Object.assign(e.currentTarget.style, styles.card)
+            }
+          >
+            <img src={p.image} alt={p.name} style={styles.image} />
+            <h3>{p.name}</h3>
+            <p>{p.description}</p>
+            <p style={styles.price}>${p.price.toLocaleString("es-AR")}</p>
+            <button style={styles.button} onClick={() => addItem(p, 1)}>
+              Agregar al carrito
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
-};
-
-export default Productos;
+}

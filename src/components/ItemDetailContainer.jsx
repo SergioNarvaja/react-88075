@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getProductById } from "../services/products";
-import ItemDetail from "./ItemDetail";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getProductById } from '../services/products.js';
+import ItemDetail from './ItemDetail.jsx';
 
-const ItemDetailContainer = () => {
+export default function ItemDetailContainer() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ const ItemDetailContainer = () => {
     setLoading(true);
     getProductById(id)
       .then((res) => setProduct(res))
-      .catch((err) => console.error("Error cargando producto:", err))
+      .catch(() => setProduct(null))
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -20,6 +20,4 @@ const ItemDetailContainer = () => {
   if (!product) return <p>Producto no encontrado.</p>;
 
   return <ItemDetail product={product} />;
-};
-
-export default ItemDetailContainer;
+}
