@@ -1,4 +1,4 @@
-export const products = [
+export const localProducts = [
   {
     id: "1",
     name: "Aceite Esencial Relajante",
@@ -6,7 +6,7 @@ export const products = [
     price: 8500,
     stock: 10,
     category: "aromaterapia",
-    img: "https://images.unsplash.com/photo-1600180758890-6d4b0b5c3e8f?auto=format&fit=crop&w=600&q=80"
+    img: "https://serzen73315.netlify.app/imagenes/aceite.jpg"
   },
   {
     id: "2",
@@ -15,7 +15,7 @@ export const products = [
     price: 6200,
     stock: 8,
     category: "cosmetica",
-    img: "https://images.unsplash.com/photo-1616394584738-3b8e1dc1f30e?auto=format&fit=crop&w=600&q=80"
+    img: "https://serzen73315.netlify.app/imagenes/mascarilla.jpg"
   },
   {
     id: "3",
@@ -24,7 +24,7 @@ export const products = [
     price: 12900,
     stock: 5,
     category: "equipamiento",
-    img: "https://images.unsplash.com/photo-1606813902916-d1b3e8e91c07?auto=format&fit=crop&w=600&q=80"
+    img: "https://serzen73315.netlify.app/imagenes/banner-masaje-piedras.jpg"
   },
   {
     id: "4",
@@ -33,7 +33,7 @@ export const products = [
     price: 3900,
     stock: 12,
     category: "aromaterapia",
-    img: "https://images.unsplash.com/photo-1603036428162-6f5a1b3a7c19?auto=format&fit=crop&w=600&q=80"
+    img: "https://enchantedflamesmx.com/cdn/shop/articles/velas_decorativas.jpg?v=1724992235&width=1100"
   },
   {
     id: "5",
@@ -42,8 +42,6 @@ export const products = [
     price: 4800,
     stock: 20,
     category: "equipamiento",
-    img: "https://images.unsplash.com/photo-1588776814546-46e63ad23713?auto=format&fit=crop&w=600&q=80"
+    img: "https://acdn-us.mitiendanube.com/stores/006/098/830/products/3-toallones2-72d6ff87f050e93ed317514708282928-480-0.jpg"
   }
 ];
-
-export default products;

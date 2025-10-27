@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "serzen-react-store",
+    "site": "serzen-react-carro",
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [

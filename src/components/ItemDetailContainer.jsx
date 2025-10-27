@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getProductById } from '../services/products.js';
-import ItemDetail from './ItemDetail.jsx';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../services/products.js";
+import ItemDetail from "./ItemDetail.jsx";
 
 export default function ItemDetailContainer() {
   const { id } = useParams();
@@ -10,14 +10,20 @@ export default function ItemDetailContainer() {
 
   useEffect(() => {
     setLoading(true);
-    getProductById(id)
-      .then((res) => setProduct(res))
-      .catch(() => setProduct(null))
-      .finally(() => setLoading(false));
+    (async () => {
+      try {
+        const p = await getProductById(id);
+        setProduct(p);
+      } catch (e) {
+        console.error(e);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, [id]);
 
   if (loading) return <p>Cargando detalle...</p>;
   if (!product) return <p>Producto no encontrado.</p>;
-
   return <ItemDetail product={product} />;
 }

@@ -1,46 +1,40 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getProducts, getProductsByCategory } from "../services/products.js";
+import { getProducts } from "../services/products.js";
 import ItemList from "./ItemList.jsx";
 
-export default function ItemListContainer() {
+export default function ItemListContainer({ greeting }) {
   const { categoryId } = useParams();
-  const [products, setProducts] = useState([]);
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    const fetchData = async () => {
+    (async () => {
       try {
-        const data = categoryId
-          ? await getProductsByCategory(categoryId)
-          : await getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error cargando productos:", error);
+        const data = categoryId ? await getProducts(categoryId) : await getProducts();
+        setItems(data);
+      } catch (e) {
+        console.error(e);
+        setItems([]);
       } finally {
         setLoading(false);
       }
-    };
-    fetchData();
+    })();
   }, [categoryId]);
 
   if (loading) return <p>Cargando productos...</p>;
-
-  if (products.length === 0)
-    return (
-      <div>
-        <p>No hay productos disponibles en esta categoría.</p>
-        <Link to="/">Volver al inicio</Link>
-      </div>
-    );
+  if (items.length === 0) return (
+    <div>
+      <p>No hay productos disponibles en esta categoría.</p>
+      <Link to="/">Volver al inicio</Link>
+    </div>
+  );
 
   return (
     <div>
-      <h2 style={{ textAlign: "center", margin: "20px 0" }}>
-        {categoryId ? `Categoría: ${categoryId}` : "Todos los productos"}
-      </h2>
-      <ItemList products={products} />
+      {greeting && <h2>{greeting}</h2>}
+      <ItemList products={items} />
     </div>
   );
 }

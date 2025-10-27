@@ -1,5 +1,6 @@
-import React from "react";
-import products from "../data/products";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/config.js";
 import { useCart } from "../context/CartContext.jsx";
 
 const styles = {
@@ -50,31 +51,34 @@ const styles = {
 
 export default function Productos() {
   const { addItem } = useCart();
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const q = collection(db, "products");
+        const snap = await getDocs(q);
+        setProducts(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      } catch (e) {
+        console.error(e);
+        setProducts([]);
+      }
+    })();
+  }, []);
+
+  if (!products.length) return <div><h2>Nuestros productos</h2><p>No hay productos cargados aún.</p></div>;
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Nuestros productos</h2>
-
-      <div style={styles.grid}>
-        {products.map((p) => (
-          <div
-            key={p.id}
-            style={styles.card}
-            onMouseEnter={(e) =>
-              Object.assign(e.currentTarget.style, styles.cardHover)
-            }
-            onMouseLeave={(e) =>
-              Object.assign(e.currentTarget.style, styles.card)
-            }
-          >
-            <img src={p.image} alt={p.name} style={styles.image} />
+    <div>
+      <h2>Nuestros productos</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 16 }}>
+        {products.map(p => (
+          <article key={p.id} style={{ border: "1px solid #ddd", padding: 12 }}>
+            <img src={p.image || p.img} alt={p.name} style={{ width: "100%", height: 140, objectFit: "cover" }} />
             <h3>{p.name}</h3>
             <p>{p.description}</p>
-            <p style={styles.price}>${p.price.toLocaleString("es-AR")}</p>
-            <button style={styles.button} onClick={() => addItem(p, 1)}>
-              Agregar al carrito
-            </button>
-          </div>
+            <p><strong>${p.price}</strong></p>
+            <button onClick={() => addItem({ id: p.id, name: p.name, price: p.price, stock: p.stock }, 1)}>Agregar</button>
+          </article>
         ))}
       </div>
     </div>

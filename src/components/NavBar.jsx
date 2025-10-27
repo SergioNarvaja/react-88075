@@ -1,17 +1,13 @@
-import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext.jsx";
-import CartWidget from "./CartWidget.jsx";
-import "./NavBar.css";
+import { Link } from 'react-router-dom';
+import CartWidget from './CartWidget.jsx';
+import './navbar.css';
 
-export default function NavBar() {
-  const { cartCount } = useCart();
-
+export default function NavBar(){
   return (
     <header className="navbar">
-      <div className="navbar-logo">
-        <h1>SerZen Store</h1>
+      <div style={{display:'flex',alignItems:'center',gap:12}}>
+        <h1 style={{margin:0}}>SerZen Store</h1>
       </div>
-
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
@@ -19,12 +15,8 @@ export default function NavBar() {
           <li><Link to="/contact">Contacto</Link></li>
         </ul>
       </nav>
-
-      <div className="navbar-cart">
-        <Link to="/cart" className="cart-link">
-          <CartWidget />
-          <span className="cart-badge">{cartCount()}</span>
-        </Link>
+      <div>
+        <CartWidget />
       </div>
     </header>
   );

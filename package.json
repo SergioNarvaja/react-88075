@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "seed": "node src/seedProducts.js",
     "preview": "vite preview"
   },
   "dependencies": {
