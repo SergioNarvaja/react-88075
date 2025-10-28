@@ -14,10 +14,19 @@ export const getProductsByCategory = async (categoryId) => {
 };
 
 export const getProductById = async (id) => {
-  const ref = doc(db, "products", id);
-  const snap = await getDoc(ref);
-  if (!snap.exists()) return null;
-  return { id: snap.id, ...snap.data() };
+  try {    
+    const ref = doc(db, "products", id);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      return { id: snap.id, ...snap.data() };
+    }
+
+    const local = localProducts.find(p => String(p.id) === String(id));
+    return local || null;
+  } catch (err) {
+    console.warn("⚠️ Error al obtener producto, usando local:", err);
+    return localProducts.find(p => String(p.id) === String(id)) || null;
+  }
 };
 
 export const getProductsSafe = async (categoryId) => {
