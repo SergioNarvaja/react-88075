@@ -23,7 +23,12 @@ export default function ItemListContainer({ greeting }) {
     })();
   }, [categoryId]);
 
-  if (loading) return <p>Cargando productos...</p>;
+  if (loading) return (
+  <div style={{ textAlign: 'center', padding: '2rem' }}>
+    <div className="loader"></div>
+    <p style={{ marginTop: '1rem', color: '#004221' }}>Cargando productos...</p>
+  </div>
+);
   if (items.length === 0) return (
     <div>
       <p>No hay productos disponibles en esta categoría.</p>

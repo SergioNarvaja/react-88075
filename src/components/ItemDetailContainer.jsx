@@ -23,7 +23,12 @@ export default function ItemDetailContainer() {
     })();
   }, [id]);
 
-  if (loading) return <p>Cargando detalle...</p>;
+  if (loading) return (
+  <div style={{ textAlign: 'center', padding: '2rem' }}>
+    <div className="loader"></div>
+    <p style={{ marginTop: '1rem', color: '#004221' }}>Cargando productos...</p>
+  </div>
+);
   if (!product) return <p>Producto no encontrado.</p>;
   return <ItemDetail product={product} />;
 }
